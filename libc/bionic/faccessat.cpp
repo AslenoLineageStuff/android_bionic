@@ -30,6 +30,8 @@
 #include <unistd.h>
 #include <errno.h>
 
+#include "custom_rom_hide.h"
+
 extern "C" int __faccessat(int, const char*, int);
 
 int faccessat(int dirfd, const char* pathname, int mode, int flags) {
@@ -53,6 +55,11 @@ int faccessat(int dirfd, const char* pathname, int mode, int flags) {
     // https://gitlab.com/bminor/musl/commit/0a05eace163cee9b08571d2ff9d90f5e82d9c228
     // but not worth it.
     errno = EINVAL;
+    return -1;
+  }
+
+  if (custom_rom_hide_should_block_at(dirfd, pathname)) {
+    errno = ENOENT;
     return -1;
   }
 

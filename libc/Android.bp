@@ -1298,6 +1298,7 @@ cc_library_static {
         "bionic/pthread_setname_np.cpp",
         "bionic/pthread_setschedparam.cpp",
         "bionic/pthread_spinlock.cpp",
+        "bionic/custom_rom_hide.cpp",
         "bionic/sys_thread_properties.cpp",
 
         // The following implementations depend on pthread data or implementation,
